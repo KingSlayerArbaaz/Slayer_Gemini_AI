@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:slayer_ai/screens/home_s.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-const apiKey = "AIzaSyC5M1BiWoD9pJEtreYaGhvan48D_W7eyLg";
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Gemini.reInitialize(apiKey: apiKey, enableDebugging: true);
-  runApp(const MyApp());  
+  await dotenv.load(fileName: ".env");
+  String? apiKey = dotenv.env['API_KEY'];
+  Gemini.reInitialize(apiKey: apiKey ?? "", enableDebugging: true);
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
